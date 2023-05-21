@@ -1,3 +1,8 @@
+
+### compress-transactions
+
+Compress the list of given transactions based on balances
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

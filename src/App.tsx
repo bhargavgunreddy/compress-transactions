@@ -58,6 +58,47 @@ const App = () => {
   // }, []);
 
 
+  const handleCompressTransactions = () => {
+    const receivingTransactionsMap = new Map();
+    const payingTransactionsMap = new Map();
+
+    // Sum amounts in each section based on the transaction party
+    receivingTransactions.forEach((transactionIterator: TransactionRow) => {
+      const currentKey = transactionIterator.transaction;
+      if (receivingTransactionsMap.has(currentKey)) {
+        const currentAmount = receivingTransactionsMap.get(currentKey);
+        receivingTransactionsMap.set(currentKey, currentAmount + transactionIterator.amount);
+      } else {
+        receivingTransactionsMap.set(currentKey, transactionIterator.amount);
+
+      }
+    });
+
+    payingTransactions.forEach((transactionIterator: TransactionRow) => {
+      const currentKey = transactionIterator.transaction;
+      if (payingTransactionsMap.has(currentKey)) {
+        const currentAmount = payingTransactionsMap.get(currentKey);
+        payingTransactionsMap.set(currentKey, currentAmount + transactionIterator.amount);
+      } else {
+        payingTransactionsMap.set(currentKey, transactionIterator.amount);
+
+      }
+    });
+
+
+    // Pull all keys into one object for final transactions
+    for (const [key, value] of receivingTransactionsMap.entries()) {
+      if (payingTransactionsMap.has(key)) {
+        receivingTransactionsMap.set(key, receivingTransactionsMap.get(key) + payingTransactionsMap.get(key));
+        payingTransactionsMap.delete(key)
+      } else {
+        receivingTransactionsMap.set(key, payingTransactionsMap.get(key));
+      }
+    }
+
+    return receivingTransactionsMap;
+
+  }
 
   return (
     <>
@@ -70,7 +111,7 @@ const App = () => {
       <Grid container spacing={4} justifyContent='center'
         alignContent='space-around'>
 
-<Grid item xs={8} sm={4} lg={6}>
+        <Grid item xs={8} sm={4} lg={6}>
           <Button variant="contained" color="primary"
             id="add-transaction" onClick={handleOpen}>
             Add new transaction
@@ -79,7 +120,8 @@ const App = () => {
 
         <Grid item xs={8} sm={6} lg={6}>
 
-          <Button variant="outlined" color="default" id="compress-transaction">
+          <Button variant="outlined" color="default" id="compress-transaction"
+            onClick={handleCompressTransactions}>
             Compress transactions</Button>
         </Grid>
         <AddTransactionModal open={open} setOpen={setOpen}

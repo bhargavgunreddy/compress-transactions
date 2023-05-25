@@ -19,9 +19,9 @@ export const TransactionsGrid = (props: TransactionsGridProps) => {
     ]);
 
     return (
-        <Grid item xs={8} sm={6} lg={6}>
+        <Grid >
             <h3>{label}</h3>
-            <div className="ag-theme-alpine" style={{ height: 300, width: 300 }}>
+            <div className="ag-theme-alpine" style={{ height: 400, width: 400 }}>
                 <AgGridReact
                     rowData={rowData} // Row Data for Rows 
                     columnDefs={columnDefs} // Column Defs for Columns 

@@ -4,7 +4,7 @@ export interface AddTransactionModalProps {
     handleClose: () => void;
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>,
-    addTransaction: (transaction: TransactionRow) => void
+    addTransaction: (response: TransactionResponse) => void
 }
 
 export type TransactionRow = {
@@ -16,3 +16,17 @@ export interface TransactionsGridProps {
     rowData: Array<TransactionRow>;
     label: string
 }
+
+export interface TransactionResponse {
+    payingTransactions: [],
+    receivingTransactions: []
+  }
+
+
+  export type LoginResponseType = {
+    error?: string, success?: string
+  }
+  
+  export interface LoginComponentProps{
+    handleLogin: (response: LoginResponseType) => void;
+  }

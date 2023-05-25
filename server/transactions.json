@@ -1,0 +1,30 @@
+{
+    "payingTransactions": [
+        {
+            "transaction": "abc",
+            "amount": -1500
+        },
+        {
+            "transaction": "def",
+            "amount": -300
+        },
+        {
+            "transaction": "abc",
+            "amount": -200
+        }
+    ],
+    "receivingTransactions": [
+        {
+            "transaction": "abc",
+            "amount": 500
+        },
+        {
+            "transaction": "def",
+            "amount": 1500
+        },
+        {
+            "transaction": "abc",
+            "amount": 500
+        }
+    ]
+}

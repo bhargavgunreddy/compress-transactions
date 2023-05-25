@@ -7,16 +7,34 @@ const AddTransactionModal = (props: AddTransactionModalProps) => {
   const [stringField, setStringField] = useState("");
   const [numberField, setNumberField] = useState("");
 
-  
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
     if (stringField.trim() === "" || numberField.trim() === "") {
       alert("Both fields are required");
     } else {
-      props.addTransaction({transaction: stringField.trim(), amount: Number(numberField.trim())})
-      setStringField('');
-      setNumberField('');
+      fetch('/add-transaction', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          transaction: stringField.trim(), amount: Number(numberField.trim()),
+
+        })
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        props.addTransaction(res);
+        
+        setStringField('');
+        setNumberField('');
+      }).catch((err) => {
+        console.log(err);
+        alert('Failed to save the transaction');
+      });
       props.setOpen(false);
     }
   };

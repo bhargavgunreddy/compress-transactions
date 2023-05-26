@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 morganBody(app);
 
-
+app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../compress-transactions-client/build')));
 
 
@@ -129,6 +129,7 @@ app.get("/compress-transactions", (req, res) => {
 
 // Login route
 app.post('/login', (req, res) => {
+  console.log(req.body)
   let username = req.body.username;
   let password = req.body.password;
   if (username === 'admin' && password === 'admin') {

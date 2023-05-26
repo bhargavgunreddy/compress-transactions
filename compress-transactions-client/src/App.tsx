@@ -62,7 +62,7 @@ const App = () => {
   }
 
   return (
-    <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px', backgroundColor: '#b9992a' }}>
+    <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px' }}>
       <Grid container spacing={1}
         justifyContent="center"
         alignContent="center"

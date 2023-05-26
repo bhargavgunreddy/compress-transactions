@@ -24,8 +24,8 @@ const LoginComponent = (props: LoginComponentProps) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: userNameField.trim(), password: (passwordField.trim()),
-
+          username: userNameField.trim(),
+          password: passwordField.trim(),
         })
       })
         .then((res) => res.json())

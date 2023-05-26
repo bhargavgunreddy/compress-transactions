@@ -13,7 +13,7 @@ const LoginComponent = (props: LoginComponentProps) => {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
+    console.log("handle login")
     if (userNameField.trim() === "" || passwordField.trim() === "") {
       alert("Both fields are required");
     } else {

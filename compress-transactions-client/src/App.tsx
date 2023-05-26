@@ -49,6 +49,7 @@ const App = () => {
   }
 
   const handleLogin = (response: LoginResponseType) => {
+    console.log(response);
     if (response.error) {
       alert('Failed to login');
     } else if (response.success) {

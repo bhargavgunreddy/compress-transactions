@@ -17,12 +17,12 @@ morganBody(app);
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 
-if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production") {
+//   app.use(express.static("build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "build", "index.html"));
+//   });
+// }
 app.get("/fetch-transactions", (req, res) => {
 
   res.json(storage.state);
@@ -60,13 +60,12 @@ app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 
 app.get("/compress-transactions", (req, res) => {
-
 
   var myStr = ""
   const receivingTransactionsMap = new Map();
@@ -148,4 +147,8 @@ app.post('/login', (req, res) => {
   else {
     res.send({ error: 'Login failed' });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
 });

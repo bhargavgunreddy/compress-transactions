@@ -61,7 +61,7 @@ const App = () => {
   }
 
   return (
-    <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px' }}>
+    <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px', backgroundColor: '#b9992a' }}>
       <Grid container spacing={1}
         justifyContent="center"
         alignContent="center"
@@ -75,7 +75,7 @@ const App = () => {
             alignItems='center'>
             <Grid item>
 
-              <Button variant="outlined" color="primary"
+              <Button variant="contained" color="primary"
                 id="logout" onClick={() => setIsLoggedIn(false)}>
                 Logout
               </Button>
@@ -106,7 +106,7 @@ const App = () => {
         <Grid item xs={8} sm={6} lg={6}>
           <Grid container spacing={2} justifyContent="center">
             <Grid item xs={8} sm={4} lg={6}>
-              <Button variant="outlined" color="default" id="compress-transaction"
+              <Button variant="contained" color="primary" id="compress-transaction"
                 onClick={handleCompressTransactions}>
                 Compress transactions</Button>
             </Grid>

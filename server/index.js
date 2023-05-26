@@ -20,7 +20,6 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.get("/fetch-transactions", (req, res) => {
 
-  console.log("fetch transacs req");
   res.json(storage.state);
 });
 
@@ -114,22 +113,20 @@ app.get("/compress-transactions", (req, res) => {
   // Creating header
   let map = finalTransactionsMap;
   for (let key of map.keys()) {
-    console.log({ key });
     myStr += key + ","
   }
   myStr = myStr.slice(0, -1) + "\r\n";
 
   const [firstValue] = map.values();
 
-  console.log(firstValue);
   let row = '';
   for (let value of map.values()) {
-    console.log({ value });
     row += value + ","
   }
 
   myStr += row.slice(0, -1) + "\r\n";
 
+  // output
   console.log({ myStr });
   fs.writeFileSync('./mycsv.csv', myStr);
   res.json({ message: 'Success' });

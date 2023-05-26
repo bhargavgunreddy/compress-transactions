@@ -45,7 +45,7 @@ const App = () => {
       .then((response) => response.json())
       .then((response) => {
         alert('The csv file is updated in the root folder with compressed transactions')
-      });
+      }).catch((err) => console.log('Unable to load transactions at this point'));
   }
 
   const handleLogin = (response: LoginResponseType) => {
@@ -56,9 +56,9 @@ const App = () => {
     }
   }
 
-  // if (!isLoggedIn) {
-  //   return <LoginComponent handleLogin={handleLogin}></LoginComponent>
-  // }
+  if (!isLoggedIn) {
+    return <LoginComponent handleLogin={handleLogin}></LoginComponent>
+  }
 
   return (
     <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px' }}>

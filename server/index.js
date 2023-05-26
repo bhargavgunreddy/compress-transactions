@@ -55,7 +55,7 @@ app.get("/api", (req, res) => {
 });
 
 
-app.get("/compress-transactions", (req, res) => {
+app.post("/compress-transactions", (req, res) => {
 
   var myStr = ""
   const receivingTransactionsMap = new Map();
@@ -121,9 +121,11 @@ app.get("/compress-transactions", (req, res) => {
   myStr += row.slice(0, -1) + "\r\n";
 
   // output
-  console.log({ myStr });
+  console.log({ finalTransactionsMap });
   fs.writeFileSync('./mycsv.csv', myStr);
-  res.json({ message: 'Success' });
+  // res.download(myStr, 'file.csv');
+  res.send(Buffer.from(myStr));
+
 
 });
 

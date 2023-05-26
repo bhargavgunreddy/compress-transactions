@@ -1,11 +1,15 @@
 // import { Container } from "@material-ui/core";
-import { Box, Grid } from "@mui/material";
-import { IRowNode } from "ag-grid-community";
+import { Grid } from "@mui/material";
+
 import { AgGridReact } from "ag-grid-react";
 import Container from '@mui/material/Container';
 import React, { useMemo, useState } from "react";
 import { TransactionsGridProps } from "../types";
 
+
+// This grid component just displayst he list of transactions ins the page
+// basedo on the props passed to it
+// It uses ag-grid torender the grid
 
 export const TransactionsGrid = (props: TransactionsGridProps) => {
 

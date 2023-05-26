@@ -3,6 +3,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { Close } from "@material-ui/icons";
 import { AddTransactionModalProps } from "../types";
 
+
+// This modal lets the user add transactions
 const AddTransactionModal = (props: AddTransactionModalProps) => {
   const [stringField, setStringField] = useState("");
   const [numberField, setNumberField] = useState("");

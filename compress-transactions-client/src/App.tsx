@@ -4,12 +4,11 @@ import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 import { TransactionsGrid } from './components/TransactionsGrid';
 import { Button, Grid } from '@material-ui/core';
+import { CSVLink } from "react-csv";
 import Container from '@mui/material/Container';
 import AddTransactionModal from './components/AddTransactionModal';
 import { LoginResponseType, TransactionResponse, TransactionRow } from './types';
 import LoginComponent from './components/LoginComponent';
-
-
 
 const App = () => {
 
@@ -17,6 +16,7 @@ const App = () => {
   const [receivingTransactions, setReceivingTransactions] = useState<TransactionRow[]>([]);
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [fileData, setFileData] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
@@ -38,14 +38,24 @@ const App = () => {
   }, []);
 
 
+  const downloadFile = () => {
+    const downloadLink = document.getElementById('download-csv');
+    downloadLink?.click()
+  }
+
   const handleCompressTransactions = () => {
     fetch('/compress-transactions', {
-      method: 'GET',
+      method: 'POST',
     })
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((response) => {
-        alert('The csv file is updated in the root folder with compressed transactions')
-      }).catch((err) => console.log('Unable to load transactions at this point'));
+        setFileData(response);
+        alert(`The csv file will be downlaoded shortly`);
+        setTimeout(() => {
+
+          downloadFile();
+        }, 1000);
+      }).catch((err) => console.log('Unable to load transactions at this point', err));
   }
 
   const handleLogin = (response: LoginResponseType) => {
@@ -113,6 +123,15 @@ const App = () => {
             </Grid>
           </Grid>
         </Grid>
+        <CSVLink
+          data={fileData as any}
+          filename={"my-file.csv"}
+          id='download-csv'
+          className="btn btn-primary"
+          target="_blank"
+        >
+          Download me
+        </CSVLink>
         <AddTransactionModal open={open} setOpen={setOpen}
           handleClose={() => setOpen(false)}
           addTransaction={addTransaction}></AddTransactionModal>

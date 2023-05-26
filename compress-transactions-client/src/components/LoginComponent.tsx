@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Button, Grid, DialogActions, DialogContent, DialogTitle, TextField } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Button, Grid, DialogActions, TextField } from "@material-ui/core";
 import { LoginComponentProps } from "../types";
 
+
+// Login component has the logic to handle user login
+// it will make the APi call and return if its a success or failure
+// and return the response to parent component
 
 
 const LoginComponent = (props: LoginComponentProps) => {

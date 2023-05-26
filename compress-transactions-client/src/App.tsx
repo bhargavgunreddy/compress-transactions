@@ -61,7 +61,7 @@ const App = () => {
   const handleLogin = (response: LoginResponseType) => {
     console.log(response);
     if (response.error) {
-      alert('Failed to login');
+      alert('Failed to login. Use admin/admin to login');
     } else if (response.success) {
       setIsLoggedIn(true);
     }

@@ -16,7 +16,6 @@ const LoginComponent = (props: LoginComponentProps) => {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    console.log("handle login")
     if (userNameField.trim() === "" || passwordField.trim() === "") {
       alert("Both fields are required");
     } else {
@@ -33,8 +32,12 @@ const LoginComponent = (props: LoginComponentProps) => {
       })
         .then((res) => res.json())
         .then((res) => {
-          props.handleLogin({ success: 'Login success' });
+          if (res.error) {
+            props.handleLogin({ error: 'Login failed' })
 
+          } else {
+            props.handleLogin({ success: 'Login success' });
+          }
           setUserNameField('');
           setPasswordField('');
         }).catch((err) => {

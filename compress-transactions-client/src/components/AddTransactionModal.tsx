@@ -8,7 +8,7 @@ const AddTransactionModal = (props: AddTransactionModalProps) => {
   const [numberField, setNumberField] = useState("");
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     if (stringField.trim() === "" || numberField.trim() === "") {
@@ -22,19 +22,17 @@ const AddTransactionModal = (props: AddTransactionModalProps) => {
         },
         body: JSON.stringify({
           transaction: stringField.trim(), amount: Number(numberField.trim()),
-
         })
       })
-      .then((res) => res.json())
-      .then((res) => {
-        props.addTransaction(res);
-        
-        setStringField('');
-        setNumberField('');
-      }).catch((err) => {
-        console.log(err);
-        alert('Failed to save the transaction');
-      });
+        .then((res) => res.json())
+        .then((res) => {
+          props.addTransaction(res);
+          setStringField('');
+          setNumberField('');
+        }).catch((err) => {
+          console.log(err);
+          alert('Failed to save the transaction');
+        });
       props.setOpen(false);
     }
   };
@@ -61,7 +59,7 @@ const AddTransactionModal = (props: AddTransactionModalProps) => {
               type="text"
               fullWidth
               value={stringField}
-              onChange={(e: any) => setStringField(e.target.value)}
+              onChange={(e) => setStringField(e.target.value)}
               required
             />
             <TextField
@@ -70,7 +68,7 @@ const AddTransactionModal = (props: AddTransactionModalProps) => {
               type="number"
               fullWidth
               value={numberField}
-              onChange={(e: any) => setNumberField(e.target.value)}
+              onChange={(e) => setNumberField(e.target.value)}
               required
             />
           </DialogContent>

@@ -11,7 +11,7 @@ const LoginComponent = (props: LoginComponentProps) => {
   const [passwordField, setPasswordField] = useState("");
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     if (userNameField.trim() === "" || passwordField.trim() === "") {
@@ -52,7 +52,7 @@ const LoginComponent = (props: LoginComponentProps) => {
             type="text"
             fullWidth
             value={userNameField}
-            onChange={(e: any) => setUserNameField(e.target.value)}
+            onChange={(e) => setUserNameField(e.target.value)}
             required
           />
           <TextField
@@ -61,7 +61,7 @@ const LoginComponent = (props: LoginComponentProps) => {
             type="password"
             fullWidth
             value={passwordField}
-            onChange={(e: any) => setPasswordField(e.target.value)}
+            onChange={(e) => setPasswordField(e.target.value)}
             required
           />
           <DialogActions>

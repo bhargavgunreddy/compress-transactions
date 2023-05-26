@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 import { TransactionsGrid } from './components/TransactionsGrid';
 import { Button, Grid } from '@material-ui/core';
+import Container from '@mui/material/Container';
 import AddTransactionModal from './components/AddTransactionModal';
 import { LoginResponseType, TransactionResponse, TransactionRow } from './types';
 import LoginComponent from './components/LoginComponent';
@@ -38,61 +39,13 @@ const App = () => {
 
 
   const handleCompressTransactions = () => {
-    // const receivingTransactionsMap = new Map();
-    // const payingTransactionsMap = new Map();
-
-    // // Sum amounts in each section based on the transaction party
-    // receivingTransactions.forEach((transactionIterator: TransactionRow) => {
-    //   const currentKey = transactionIterator.transaction;
-    //   if (receivingTransactionsMap.has(currentKey)) {
-    //     const currentAmount = receivingTransactionsMap.get(currentKey);
-    //     receivingTransactionsMap.set(currentKey, currentAmount + transactionIterator.amount);
-    //   } else {
-    //     receivingTransactionsMap.set(currentKey, transactionIterator.amount);
-
-    //   }
-    // });
-
-    // payingTransactions.forEach((transactionIterator: TransactionRow) => {
-    //   const currentKey = transactionIterator.transaction;
-    //   if (payingTransactionsMap.has(currentKey)) {
-    //     const currentAmount = payingTransactionsMap.get(currentKey);
-    //     payingTransactionsMap.set(currentKey, currentAmount + transactionIterator.amount);
-    //   } else {
-    //     payingTransactionsMap.set(currentKey, transactionIterator.amount);
-
-    //   }
-    // });
-
-
-    // let finalTransactionsMap = new Map();
-    // // Pull all keys into one object for final transactions
-    // for (const [key, value] of receivingTransactionsMap.entries()) {
-    //   if (payingTransactionsMap.has(key)) {
-    //     finalTransactionsMap.set(key, receivingTransactionsMap.get(key) + payingTransactionsMap.get(key));
-    //     payingTransactionsMap.delete(key)
-    //   } else {
-    //     finalTransactionsMap.set(key, payingTransactionsMap.get(key));
-    //   }
-    // }
-
-    // // Add the unique keys back
-    // for (const [key, value] of payingTransactionsMap.entries()) {
-    //   finalTransactionsMap.set(key, payingTransactionsMap.get(key));
-    // }
-
-    // console.log({ finalTransactionsMap });
-
     fetch('/compress-transactions', {
-      method: 'POST',
-      body: JSON.stringify(""),
+      method: 'GET',
     })
       .then((response) => response.json())
       .then((response) => {
         alert('The csv file is updated in the root folder with compressed transactions')
-      }
-      );
-
+      });
   }
 
   const handleLogin = (response: LoginResponseType) => {
@@ -103,32 +56,38 @@ const App = () => {
     }
   }
 
-  if (!isLoggedIn) {
-    return <LoginComponent handleLogin={handleLogin}></LoginComponent>
-  }
+  // if (!isLoggedIn) {
+  //   return <LoginComponent handleLogin={handleLogin}></LoginComponent>
+  // }
 
   return (
-    <>
-      <Grid container spacing={2} justifyContent="center"
-        alignContent="space-around"
+    <Container maxWidth="lg" className='outline' sx={{ padding: '2%', border: '1px solid gray', borderRadius: '10px' }}>
+      <Grid container spacing={1}
+        justifyContent="center"
+        alignContent="center"
+        alignItems='center'
       >
-        <Grid item xs={4} sm={4} lg={6}>
+        <Grid item xs={6} sm={6} lg={6}>
           <h3>Compress Transactions App</h3>
         </Grid>
-        <Grid item xs={2} sm={4} lg={6}>
+        <Grid item xs={2} sm={2} lg={2}>
+          <Grid container justifyContent="center" alignContent='center'
+            alignItems='center'>
+            <Grid item>
 
-          <Button variant="contained" color="primary"
-            id="logout" onClick={() => setIsLoggedIn(false)}>
-            Logout
-          </Button>
+              <Button variant="outlined" color="primary"
+                id="logout" onClick={() => setIsLoggedIn(false)}>
+                Logout
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
-
       </Grid>
-      <Grid container spacing={4} justifyContent="center"
+      <Grid container spacing={2} justifyContent="space-evenly"
         alignContent="space-around"
       >
-        <TransactionsGrid rowData={payingTransactions as any} label='Paying'></TransactionsGrid>
-        <TransactionsGrid rowData={receivingTransactions as any} label='Receiving'></TransactionsGrid>
+        <TransactionsGrid rowData={payingTransactions} label='Paying'></TransactionsGrid>
+        <TransactionsGrid rowData={receivingTransactions} label='Receiving'></TransactionsGrid>
       </Grid>
       <Grid container spacing={4} justifyContent='center'
         alignContent='space-around'>
@@ -136,7 +95,6 @@ const App = () => {
         <Grid item xs={8} sm={4} lg={6}>
           <Grid container spacing={2} justifyContent="center">
             <Grid item xs={8} sm={4} lg={6}>
-
               <Button variant="contained" color="primary"
                 id="add-transaction" onClick={handleOpen}>
                 Add new transaction
@@ -158,7 +116,7 @@ const App = () => {
           handleClose={() => setOpen(false)}
           addTransaction={addTransaction}></AddTransactionModal>
       </Grid>
-    </>
+    </Container>
   );
 }
 

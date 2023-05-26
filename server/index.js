@@ -61,7 +61,7 @@ app.listen(PORT, () => {
 });
 
 
-app.post("/compress-transactions", (req, res) => {
+app.get("/compress-transactions", (req, res) => {
 
 
   var myStr = ""

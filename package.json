@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "build": "cd client && yarn && yarn build"
+    "build": "cd compress-transactions-client && yarn && yarn build"
   },
   "keywords": [],
   "author": "",

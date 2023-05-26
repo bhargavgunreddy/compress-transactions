@@ -13,11 +13,16 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 morganBody(app);
 
-app.use(express.json());
-
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
+
+if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 app.get("/fetch-transactions", (req, res) => {
 
   res.json(storage.state);
